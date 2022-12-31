@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+{% block body %}
+   <table>
+  <tr>
+    <th>course_schedule_id</th>
+    <th>cource_name</th>
+      <th>day</th>
+    <th>duration</th>
+      <th>start_time</th>
+	  <th>end_time</th>
+
+  </tr>
+ {%for course in CourseSchedule%}
+        <tr>
+            <td>{{course[0]}}</td>
+			<td>{{course[1]}}</td>
+			<td>{{course[2]}}</td>
+			<td>{{course[3]}}</td>
+			<td>{{course[4]}}</td>
+			<td>{{course[5]}}</td>
+        </tr>
+        {%endfor%}
+</table>
+{% endblock %}
