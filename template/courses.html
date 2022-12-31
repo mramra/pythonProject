@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 {% block body %}
-   <table>
-  <tr>
+<table class="table table-bordered table-striped table-hover">
+<tr>
     <th>Course ID</th>
     <th>level_name</th>
       <th>cource_name</th>
@@ -11,7 +11,7 @@
 
   </tr>
  {%for course in courses%}
-        <tr>
+        <tr class="success">
             <td>{{course[0]}}</td>
 			<td>{{course[1]}}</td>
 			<td>{{course[2]}}</td>
@@ -19,6 +19,9 @@
 			<td>{{course[4]}}</td>
 			<td>{{course[5]}}</td>
         </tr>
+
+
+
         {%endfor%}
 </table>
 {% endblock %}

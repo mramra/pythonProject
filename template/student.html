@@ -1,7 +1,8 @@
 {% extends 'index.html' %}
 {% block body %}
-   <table>
-  <tr>
+
+<table class="table table-bordered table-striped table-hover">
+   <tr>
     <th>Student ID</th>
     <th>Student Name</th>
       <th>Email</th>
@@ -12,7 +13,7 @@
 	  <th>BOD</th>
   </tr>
  {%for s in student%}
-        <tr>
+        <tr class="active">
             <td>{{s[0]}}</td>
 			<td>{{s[1]}}</td>
 			<td>{{s[2]}}</td>
@@ -22,5 +23,8 @@
             <td>{{s[6]}}</td>
         </tr>
         {%endfor%}
+
+
 </table>
+
 {% endblock %}
