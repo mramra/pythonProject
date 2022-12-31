@@ -1,18 +1,26 @@
-
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>FlaskTest</title>
-</head>
+<title>Systam Student</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+</head>
 <body>
-	<h2>Welcome To GFG</h2>
-	<h4>Flask: Rendering Templates</h4>
-	<a href="{{ url_for('index') }}">Index</a>
-	<a href="{{ url_for('student') }}">student</a>
-	<a href="{{ url_for('courses') }}">courses</a>
-	<a href="{{ url_for('CourseSchedule') }}">CourseSchedule</a>
+<div class="container ">
+	<h2>Welcome To GSG</h2>
+	<h4>Systam Student</h4>
+	<ul>
+		<li><a href="{{ url_for('index') }}">Index</a></li>
+		<li><a href="{{ url_for('student') }}">student</a></li>
+		<li><a href="{{ url_for('courses') }}">courses</a></li>
+		<li><a href="{{ url_for('CourseSchedule') }}">CourseSchedule</a></li>
+	</ul>
+
+
+
+
 	{% block body %}
 
 
@@ -20,6 +28,9 @@
 
 
 	{% endblock %}
-</body>
+</div><br /><br />
 
+</body>
 </html>
+
+
