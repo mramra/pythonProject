@@ -1,0 +1,112 @@
+Index: web.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\nfrom flask import Flask, render_template\nimport mariadb\n\nconn = mariadb.connect(\n        user=\"root\",\n        password=\"password\",\n        host=\"localhost\",\n        port=3306,\n        database=\"Students\")\ncur = conn.cursor()\n\nquery = f\"\"\"SELECT student_id,student_name,email,mobile_number,address_name,level_name,BOD\n\t\t\t FROM students\n\t\t\t join contacts c on students.contact_id = c.contact_id\n             join addresss a on students.address_id = a.address_id\n             join levels l on l.level_id = students.level_id\"\"\"\ncur.execute(query)\nLevelStudent = cur.fetchall()\n\nquery = f\"\"\"select course_id,level_name,cource_name,max_capacity,rate_per_hour,total_hours \n\t\t\tfrom courses\n\t\t\tjoin levels l on courses.level_id = l.level_id\"\"\"\ncur.execute(query)\nLevelCourses = cur.fetchall()\n\nquery = f\"\"\"select course_schedule_id,cource_name,day,duration,start_time,end_time\n\t\t\tfrom course_schedules\n\t\t\tjoin courses on courses.course_id = course_schedules.course_id\"\"\"\ncur.execute(query)\nLevelCourseSchedule = cur.fetchall()\n\napp = Flask(__name__, template_folder='template')\n@app.route(\"/\")\ndef index():\n\treturn render_template(\"index.html\")\n@app.route(\"/courses\")\ndef courses():\n\treturn render_template(\"courses.html\", courses=LevelCourses)\n@app.route(\"/CourseSchedule\")\ndef CourseSchedule():\n\treturn render_template(\"CourseSchedule.html\", CourseSchedule=LevelCourseSchedule)\n@app.route(\"/student\")\ndef student():\n\treturn render_template(\"student.html\", student=LevelStudent)\n@app.route(\"/<name>\")\ndef welcome(name):\n\treturn render_template(\"welcome.html\", name=name)\n\nif __name__ == \"__main__\":\n\tapp.run(debug=True)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web.py b/web.py
+--- a/web.py	(revision 0fe5171b1cb784a6e0195e1648c297109f777b18)
++++ b/web.py	(date 1672516108641)
+@@ -1,5 +1,5 @@
+ 
+-from flask import Flask, render_template
++from flask import Flask, render_template, request, jsonify
+ import mariadb
+ 
+ conn = mariadb.connect(
+@@ -46,6 +46,27 @@
+ @app.route("/<name>")
+ def welcome(name):
+ 	return render_template("welcome.html", name=name)
+-
++@app.route('/user')
++def get_user():
++	try:
++		id = request.args.get('id')
++		if id:
++			cur.execute(f"""SELECT student_id,student_name,email,mobile_number,address_name,level_name,BOD
++			 FROM students
++			 join contacts c on students.contact_id = c.contact_id
++             join addresss a on students.address_id = a.address_id
++             join levels l on l.level_id = students.level_id where student_id={id}""")
++			row = cur.fetchall()
++			resp = jsonify(row)
++			resp.status_code = 200
++			return resp
++		else:
++			resp = jsonify('User "id" not found in query string')
++			resp.status_code = 500
++			return resp
++	except Exception as e:
++		print(e)
++	finally:
++		conn.commit()
+ if __name__ == "__main__":
+ 	app.run(debug=True)
+\ No newline at end of file
+Index: template/contact.html
+===================================================================
+diff --git a/template/contact.html b/template/contact.html
+deleted file mode 100644
+--- a/template/contact.html	(revision 0fe5171b1cb784a6e0195e1648c297109f777b18)
++++ /dev/null	(revision 0fe5171b1cb784a6e0195e1648c297109f777b18)
+@@ -1,29 +0,0 @@
+-{% extends 'index.html' %}
+-
+-{% block body %}
+-{% if person == "admin" %}
+-
+-
+-<p> Admin Section </p>
+-
+-
+-{% elif person == "maintainer" %}
+-
+-	
+-<p> App Source Page for Maintainer</p>
+-
+-
+-{% elif person == "member" %}
+-
+-	
+-<p> Hope you are enjoying our services</p>
+-
+-
+-{% else %}
+-
+-	
+-<p> Hello, {{ person }}</p>
+-
+-
+-{% endif %}
+-{% endblock %}
+Index: template/about.html
+===================================================================
+diff --git a/template/about.html b/template/about.html
+deleted file mode 100644
+--- a/template/about.html	(revision 0fe5171b1cb784a6e0195e1648c297109f777b18)
++++ /dev/null	(revision 0fe5171b1cb784a6e0195e1648c297109f777b18)
+@@ -1,8 +0,0 @@
+-{% extends 'index.html' %}
+-{% block body %}
+-<ul>
+-	{% for social in sites %}
+-	<li>{{ social }}</li>
+-	{% endfor %}
+-</ul>
+-{% endblock %}
+Index: template/home.html
+===================================================================
+diff --git a/template/home.html b/template/home.html
+deleted file mode 100644
+--- a/template/home.html	(revision 0fe5171b1cb784a6e0195e1648c297109f777b18)
++++ /dev/null	(revision 0fe5171b1cb784a6e0195e1648c297109f777b18)
+@@ -1,7 +0,0 @@
+-{% extends 'index.html' %}
+-
+-{% block body %}
+-
+-<p> This is a home page</p>
+-
+-{% endblock %}

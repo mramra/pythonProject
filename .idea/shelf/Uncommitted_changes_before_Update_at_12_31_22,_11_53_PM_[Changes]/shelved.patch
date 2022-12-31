@@ -1,0 +1,18 @@
+Index: ApiStudent.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from flask import Flask, jsonify\nimport mariadb\nfrom functools import wraps\nfrom flask import request, abort\n\nconn = mariadb.connect(\n        user=\"root\",\n        password=\"password\",\n        host=\"localhost\",\n        port=3306,\n        database=\"Students\")\ncur = conn.cursor()\n# The actual decorator function\napp = Flask(__name__)\ndef require_appkey(view_function):\n    @wraps(view_function)\n    # the new, post-decoration function. Note *args and **kwargs here.\n    def decorated_function(*args, **kwargs):\n        key='eiWee8ep9due4deeshoa8Peichai8Eih'\n        #if request.args.get('key') and request.args.get('key') == key:\n        if request.headers.get('x-api-key') == key:\n            return view_function(*args, **kwargs)\n        else:\n            abort(401)\n    return decorated_function\n\n@app.route('/json/', methods=['POST'])\n@require_appkey\ndef put_user():\n    try:\n        id = request.form.get('id')\n        if id:\n            cur.execute(f\"\"\"SELECT student_id,student_name,email,mobile_number,address_name,level_name,BOD\n    \t\t\t FROM students\n    \t\t\t join contacts c on students.contact_id = c.contact_id\n                 join addresss a on students.address_id = a.address_id\n                 join levels l on l.level_id = students.level_id where student_id={id}\"\"\")\n            row = cur.fetchall()\n            resp = jsonify(row)\n            resp.status_code = 200\n            return resp\n        else:\n            resp = 'User \"id\" not found in query string'\n            resp.status_code = 500\n            return resp\n    except Exception as e:\n        print(e)\n\n    finally:\n        conn.commit()\n    #return 'Posted JSON!'\n\napp.run(debug =True)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ApiStudent.py b/ApiStudent.py
+--- a/ApiStudent.py	(revision 36d11dd5ba8eda12cb9bb6319c1b79cef450f45a)
++++ b/ApiStudent.py	(date 1672523579013)
+@@ -45,7 +45,6 @@
+             return resp
+     except Exception as e:
+         print(e)
+-
+     finally:
+         conn.commit()
+     #return 'Posted JSON!'

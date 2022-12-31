@@ -1,0 +1,266 @@
+Index: template/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\n<!DOCTYPE html>\n<html>\n\n<head>\n\t<title>FlaskTest</title>\n</head>\n\n<body>\n\t<h2>Welcome To GFG</h2>\n\t<h4>Flask: Rendering Templates</h4>\n\t<a href=\"{{ url_for('index') }}\">Index</a>\n\t<a href=\"{{ url_for('student') }}\">student</a>\n\t<a href=\"{{ url_for('courses') }}\">courses</a>\n\t<a href=\"{{ url_for('CourseSchedule') }}\">CourseSchedule</a>\n\t{% block body %}\n\n\n<p>This is a Flask application.</p>\n\n\n\t{% endblock %}\n</body>\n\n</html>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/template/index.html b/template/index.html
+--- a/template/index.html	(revision 36d11dd5ba8eda12cb9bb6319c1b79cef450f45a)
++++ b/template/index.html	(date 1672526740358)
+@@ -1,25 +1,44 @@
+-
+ <!DOCTYPE html>
+ <html>
+-
+ <head>
+-	<title>FlaskTest</title>
++<title>FLASK</title>
++<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
++    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
++    <meta name="viewport" content="width=device-width, initial-scale=1.0">
++
+ </head>
+-
+ <body>
+-	<h2>Welcome To GFG</h2>
+-	<h4>Flask: Rendering Templates</h4>
+-	<a href="{{ url_for('index') }}">Index</a>
+-	<a href="{{ url_for('student') }}">student</a>
+-	<a href="{{ url_for('courses') }}">courses</a>
+-	<a href="{{ url_for('CourseSchedule') }}">CourseSchedule</a>
++<div class="container ">
++
++
++	<h2>SYSTEM STUDENT</h2>
++	<h4>Flask: Rendering</h4>
++	<ul>
++		<li>
++			<a href="{{ url_for('index') }}">Index</a>
++		</li>
++		<li>
++			<a href="{{ url_for('student') }}">student</a>
++		</li>
++		<li>
++			<a href="{{ url_for('courses') }}">courses</a>
++		</li>
++		<li>
++			<a href="{{ url_for('CourseSchedule') }}">CourseSchedule</a>
++		</li>
++	</ul>
++
++
++
++
++
++
++
+ 	{% block body %}
+-
+-
+ <p>This is a Flask application.</p>
+-
+-
+ 	{% endblock %}
++
++</div><br /><br />
++
+ </body>
+-
+-</html>
++</html>
+\ No newline at end of file
+Index: template/student.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends 'index.html' %}\n{% block body %}\n   <table>\n  <tr>\n    <th>Student ID</th>\n    <th>Student Name</th>\n      <th>Email</th>\n    <th>Mobile Number</th>\n\n      <th>Address Name</th>\n\t  <th>Level</th>\n\t  <th>BOD</th>\n  </tr>\n {%for s in student%}\n        <tr>\n            <td>{{s[0]}}</td>\n\t\t\t<td>{{s[1]}}</td>\n\t\t\t<td>{{s[2]}}</td>\n\t\t\t<td>{{s[3]}}</td>\n\t\t\t<td>{{s[4]}}</td>\n\t\t\t<td>{{s[5]}}</td>\n            <td>{{s[6]}}</td>\n        </tr>\n        {%endfor%}\n</table>\n{% endblock %}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/template/student.html b/template/student.html
+--- a/template/student.html	(revision 36d11dd5ba8eda12cb9bb6319c1b79cef450f45a)
++++ b/template/student.html	(date 1672526855544)
+@@ -1,18 +1,21 @@
+ {% extends 'index.html' %}
++
++
+ {% block body %}
+-   <table>
++<table class="table table-bordered table-striped table-hover">
++
+   <tr>
+-    <th>Student ID</th>
++      <th>Student ID</th>
+     <th>Student Name</th>
+       <th>Email</th>
+     <th>Mobile Number</th>
+-
+       <th>Address Name</th>
+ 	  <th>Level</th>
+ 	  <th>BOD</th>
+   </tr>
++
+  {%for s in student%}
+-        <tr>
++        <tr class="info">
+             <td>{{s[0]}}</td>
+ 			<td>{{s[1]}}</td>
+ 			<td>{{s[2]}}</td>
+@@ -22,5 +25,11 @@
+             <td>{{s[6]}}</td>
+         </tr>
+         {%endfor%}
++</table>
++   <table>
++  <tr>
++
++  </tr>
++
+ </table>
+ {% endblock %}
+Index: template/courses.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends 'index.html' %}\n{% block body %}\n   <table>\n  <tr>\n    <th>Course ID</th>\n    <th>level_name</th>\n      <th>cource_name</th>\n    <th>max_capacity</th>\n      <th>rate_per_hour</th>\n\t  <th>total_hours</th>\n\n  </tr>\n {%for course in courses%}\n        <tr>\n            <td>{{course[0]}}</td>\n\t\t\t<td>{{course[1]}}</td>\n\t\t\t<td>{{course[2]}}</td>\n\t\t\t<td>{{course[3]}}</td>\n\t\t\t<td>{{course[4]}}</td>\n\t\t\t<td>{{course[5]}}</td>\n        </tr>\n        {%endfor%}\n</table>\n{% endblock %}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/template/courses.html b/template/courses.html
+--- a/template/courses.html	(revision 36d11dd5ba8eda12cb9bb6319c1b79cef450f45a)
++++ b/template/courses.html	(date 1672526964009)
+@@ -1,17 +1,17 @@
+ {% extends 'index.html' %}
+ {% block body %}
+-   <table>
++<table class="table table-bordered table-striped table-hover">
+   <tr>
+-    <th>Course ID</th>
++       <th>Course ID</th>
+     <th>level_name</th>
+       <th>cource_name</th>
+     <th>max_capacity</th>
+       <th>rate_per_hour</th>
+ 	  <th>total_hours</th>
+-
+   </tr>
+- {%for course in courses%}
+-        <tr>
++
++{%for course in courses%}
++        <tr class="success">
+             <td>{{course[0]}}</td>
+ 			<td>{{course[1]}}</td>
+ 			<td>{{course[2]}}</td>
+@@ -20,5 +20,6 @@
+ 			<td>{{course[5]}}</td>
+         </tr>
+         {%endfor%}
++
+ </table>
+ {% endblock %}
+\ No newline at end of file
+Index: template/CourseSchedule.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends 'index.html' %}\n{% block body %}\n   <table>\n  <tr>\n    <th>course_schedule_id</th>\n    <th>cource_name</th>\n      <th>day</th>\n    <th>duration</th>\n      <th>start_time</th>\n\t  <th>end_time</th>\n\n  </tr>\n {%for course in CourseSchedule%}\n        <tr>\n            <td>{{course[0]}}</td>\n\t\t\t<td>{{course[1]}}</td>\n\t\t\t<td>{{course[2]}}</td>\n\t\t\t<td>{{course[3]}}</td>\n\t\t\t<td>{{course[4]}}</td>\n\t\t\t<td>{{course[5]}}</td>\n        </tr>\n        {%endfor%}\n</table>\n{% endblock %}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/template/CourseSchedule.html b/template/CourseSchedule.html
+--- a/template/CourseSchedule.html	(revision 36d11dd5ba8eda12cb9bb6319c1b79cef450f45a)
++++ b/template/CourseSchedule.html	(date 1672527040358)
+@@ -1,17 +1,17 @@
+ {% extends 'index.html' %}
+ {% block body %}
+-   <table>
++<table class="table table-bordered table-striped table-hover">
+   <tr>
+-    <th>course_schedule_id</th>
++  <th>course_schedule_id</th>
+     <th>cource_name</th>
+       <th>day</th>
+     <th>duration</th>
+       <th>start_time</th>
+ 	  <th>end_time</th>
+-
+   </tr>
++
+  {%for course in CourseSchedule%}
+-        <tr>
++        <tr class="danger">
+             <td>{{course[0]}}</td>
+ 			<td>{{course[1]}}</td>
+ 			<td>{{course[2]}}</td>
+@@ -20,5 +20,6 @@
+ 			<td>{{course[5]}}</td>
+         </tr>
+         {%endfor%}
++
+ </table>
+ {% endblock %}
+\ No newline at end of file
+Index: template/contact.html
+===================================================================
+diff --git a/template/contact.html b/template/contact.html
+deleted file mode 100644
+--- a/template/contact.html	(revision 36d11dd5ba8eda12cb9bb6319c1b79cef450f45a)
++++ /dev/null	(revision 36d11dd5ba8eda12cb9bb6319c1b79cef450f45a)
+@@ -1,29 +0,0 @@
+-{% extends 'index.html' %}
+-
+-{% block body %}
+-{% if person == "admin" %}
+-
+-
+-<p> Admin Section </p>
+-
+-
+-{% elif person == "maintainer" %}
+-
+-	
+-<p> App Source Page for Maintainer</p>
+-
+-
+-{% elif person == "member" %}
+-
+-	
+-<p> Hope you are enjoying our services</p>
+-
+-
+-{% else %}
+-
+-	
+-<p> Hello, {{ person }}</p>
+-
+-
+-{% endif %}
+-{% endblock %}
+Index: template/about.html
+===================================================================
+diff --git a/template/about.html b/template/about.html
+deleted file mode 100644
+--- a/template/about.html	(revision 36d11dd5ba8eda12cb9bb6319c1b79cef450f45a)
++++ /dev/null	(revision 36d11dd5ba8eda12cb9bb6319c1b79cef450f45a)
+@@ -1,8 +0,0 @@
+-{% extends 'index.html' %}
+-{% block body %}
+-<ul>
+-	{% for social in sites %}
+-	<li>{{ social }}</li>
+-	{% endfor %}
+-</ul>
+-{% endblock %}
+Index: template/home.html
+===================================================================
+diff --git a/template/home.html b/template/home.html
+deleted file mode 100644
+--- a/template/home.html	(revision 36d11dd5ba8eda12cb9bb6319c1b79cef450f45a)
++++ /dev/null	(revision 36d11dd5ba8eda12cb9bb6319c1b79cef450f45a)
+@@ -1,7 +0,0 @@
+-{% extends 'index.html' %}
+-
+-{% block body %}
+-
+-<p> This is a home page</p>
+-
+-{% endblock %}

@@ -1,0 +1,24 @@
+Index: template/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\n<!DOCTYPE html>\n<html>\n\n<head>\n\t<title>FlaskTest</title>\n</head>\n\n<body>\n\t<h2>Welcome To GFG</h2>\n\t<h4>Flask: Rendering Templates</h4>\n\t<a href=\"{{ url_for('index') }}\">Index</a>\n\t<a href=\"{{ url_for('student') }}\">student</a>\n\t<a href=\"{{ url_for('courses') }}\">courses</a>\n\t<a href=\"{{ url_for('CourseSchedule') }}\">CourseSchedule</a>\n\t{% block body %}\n\n\n<p>This is a Flask application.</p>\n\n\n\t{% endblock %}\n</body>\n\n</html>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/template/index.html b/template/index.html
+--- a/template/index.html	(revision 36d11dd5ba8eda12cb9bb6319c1b79cef450f45a)
++++ b/template/index.html	(date 1672524604293)
+@@ -1,3 +1,4 @@
++
+ 
+ <!DOCTYPE html>
+ <html>
+@@ -7,7 +8,7 @@
+ </head>
+ 
+ <body>
+-	<h2>Welcome To GFG</h2>
++	<h2>Welcome To GSG</h2>
+ 	<h4>Flask: Rendering Templates</h4>
+ 	<a href="{{ url_for('index') }}">Index</a>
+ 	<a href="{{ url_for('student') }}">student</a>
