@@ -45,6 +45,7 @@ def put_user():
             return resp
     except Exception as e:
         print(e)
+
     finally:
         conn.commit()
     #return 'Posted JSON!'
